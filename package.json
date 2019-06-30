@@ -1,0 +1,63 @@
+{
+  "name": "vscode-markdown-intellisense",
+  "displayName": "Markdown Awesome Intellisense",
+  "version": "0.1.0",
+  "publisher": "tamuratak",
+  "license": "MIT",
+  "description": "Enable intellisense and hove in code blocks and math modes on a markdown file.",
+  "homepage": "https://github.com/tamuratak/vscode-markdown-intellisense",
+  "main": "./out/src/main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tamuratak/vscode-markdown-intellisense.git"
+  },
+  "engines": {
+    "vscode": "^1.30.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "activationEvents": [
+    "onLanguage:markdown"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "markdown",
+        "aliases": [
+          "MarkDown",
+          "Markdown",
+          "md"
+        ],
+        "extensions": [
+          ".md"
+        ]
+      }
+    ]
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^10.12.12",
+    "@types/vscode": "^1.30.0",
+    "mocha": "^6.1.4",
+    "remark": "^10.0.1",
+    "remark-math": "^1.0.6",
+    "tslint": "^5.16.0",
+    "typescript": "^3.4.5",
+    "vscode": "^1.1.14"
+  },
+  "files": [
+    "out/**/*",
+    "src/**/*"
+  ],
+  "keywords": [
+    "pegjs"
+  ],
+  "scripts": {
+    "compile": "tsc -p ./",
+    "build": "npm run compile",
+    "clean": "rm -rf out/src/* out/test/*",
+    "test": "mocha --ui tdd out/test/**/*.js"
+  }
+}
