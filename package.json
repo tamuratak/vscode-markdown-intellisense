@@ -1,10 +1,10 @@
 {
   "name": "vscode-markdown-intellisense",
-  "displayName": "Markdown Awesome Intellisense",
+  "displayName": "IntelliSense.md",
   "version": "0.1.0",
   "publisher": "tamuratak",
   "license": "MIT",
-  "description": "Enable intellisense and hove in code blocks and math modes on a markdown file.",
+  "description": "Enable intellisense and hove in code blocks on a markdown file.",
   "homepage": "https://github.com/tamuratak/vscode-markdown-intellisense",
   "main": "./out/src/main.js",
   "repository": {
