@@ -56,8 +56,9 @@
   ],
   "scripts": {
     "compile": "tsc -p ./",
+    "watch": "tsc -w -p ./",
     "build": "npm run compile",
     "clean": "rm -rf out/src/* out/test/*",
-    "test": "mocha --ui tdd out/test/**/*.js"
+    "test": "mocha --ui tdd out/test/node/**/*.js"
   }
 }
