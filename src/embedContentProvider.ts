@@ -1,4 +1,4 @@
-import {TextDocumentContentProvider, Uri} from 'vscode'
+/* import {TextDocumentContentProvider, Uri} from 'vscode'
 
 export class EmbedContentProvider implements TextDocumentContentProvider {
 
@@ -8,4 +8,4 @@ export class EmbedContentProvider implements TextDocumentContentProvider {
         
     }
 
-}
+} */
