@@ -1,11 +1,12 @@
 import {Position, TextDocument, Uri, languages, workspace} from 'vscode'
 import {Node, getLanguageId, rangeOfNode} from './astUtil'
+import * as rangeUtil from './rangeUtil'
 
 export const scheme = 'markdown-embed-content'
 
 export function createVirtualDocumentUri(document: TextDocument, node: Node) {
     const range = rangeOfNode(node)
-    const rangeJson = JSON.stringify(range)
+    const rangeJson = rangeUtil.serialize(range)
     const docUri = document.uri.with({ scheme, query: encodeURIComponent(rangeJson) })
     return docUri
 }

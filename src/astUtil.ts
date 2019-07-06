@@ -1,7 +1,7 @@
 import * as vscode from 'vscode'
-import remark = require('remark');
-import math = require('remark-math');
-const processor = remark().use(math);
+import remark = require('remark')
+import math = require('remark-math')
+const processor = remark().use(math)
 
 export type Node = {
     type: string;
@@ -16,7 +16,7 @@ export type Node = {
     }
 }
 
-export function rangeOfNode(node: Node): vscode.Range {
+export function rangeOfNode(node: Node) : vscode.Range {
     const {start, end} = node.position
     return new vscode.Range(start.line - 1, start.column - 1, end.line - 1, end.column - 1)
 }
