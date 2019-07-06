@@ -35,10 +35,13 @@
       }
     ]
   },
-  "dependencies": {},
+  "dependencies": {
+    "tmp": "^0.1.0"
+  },
   "devDependencies": {
     "@types/mocha": "^5.2.7",
     "@types/node": "^10.12.12",
+    "@types/tmp": "^0.1.0",
     "@types/vscode": "^1.30.0",
     "mocha": "^6.1.4",
     "remark": "^10.0.1",
