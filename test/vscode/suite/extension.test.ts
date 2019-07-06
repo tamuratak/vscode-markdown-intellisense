@@ -3,10 +3,9 @@
 // Please refer to their documentation on https://mochajs.org/ for help.
 //
 
-// The module 'assert' provides assertion methods from node
 import * as assert from 'assert'
-// import * as vscode from 'vscode'
-// import * as intelliSenseMd from '../src/main'
+import * as vscode from 'vscode'
+import {findNode} from '../../../src/astUtil'
 
 const workspaceRoot = process.env.CODE_WORKSPACE_ROOT || process.env.PWD || ''
 if (workspaceRoot === '') {
@@ -15,14 +14,20 @@ if (workspaceRoot === '') {
 
 
 // Defines a Mocha test suite to group tests of similar kind together
-suite("dummy", function () {
+suite("test IntelliSense.md", function () {
 
     suiteTeardown("", async () => {
 
     })
 
-    test("dummy", async function() {
-
+    test("test findNode", async function() {
+        const text = `abc`
+        const pos = new vscode.Position(0, 2)
+        const ret = findNode(text, pos)
+        assert.ok(ret)
+        if (ret) {
+            assert.strictEqual(ret.type, 'text')
+        }
     })
 
 
