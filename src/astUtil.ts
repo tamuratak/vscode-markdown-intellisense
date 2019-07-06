@@ -16,9 +16,13 @@ export type Node = {
     }
 }
 
-function isNodeIncludingPosition(node: Node, position: vscode.Position) {
+export function rangeOfNode(node: Node): vscode.Range {
     const {start, end} = node.position
-    const range = new vscode.Range(start.line - 1, start.column - 1, end.line - 1, end.column - 1)
+    return new vscode.Range(start.line - 1, start.column - 1, end.line - 1, end.column - 1)
+}
+
+function isNodeIncludingPosition(node: Node, position: vscode.Position) {
+    const range = rangeOfNode(node)
     return range.contains(position)
 }
 
@@ -46,4 +50,17 @@ export function findNode(text: string, position: vscode.Position) {
         }
     }
     return undefined
+}
+
+export function getLanguageId(node: Node) {
+    if (node.type === 'html') {
+        return 'html'
+    }
+    if (node.type === 'inlineMath' || node.type === 'math') {
+        return 'latex'
+    }
+    if (node.type === 'code') {
+        return node.lang
+    }
+    return
 }
