@@ -1,16 +1,17 @@
 import {TextDocumentContentProvider, Uri, workspace} from 'vscode'
-import * as rangeUtil from './rangeUtil'
+import * as uriUtil from './uriUtil'
 
 export class EmbedContentProvider implements TextDocumentContentProvider {
 
     constructor() {}
 
     async provideTextDocumentContent(uri: Uri) {
-        const rangeJson = decodeURIComponent(uri.query)
-        const range = rangeUtil.deserialize(rangeJson)
-        const originalUri = uri.with({ scheme: 'file' })
+        const queryJson = decodeURIComponent(uri.query)
+        const {path, range} = uriUtil.queryDeserialize(queryJson)
+        const originalUri = uri.with({ scheme: 'file', path })
         const originalDoc = await workspace.openTextDocument(originalUri)
-        return originalDoc.getText(range)
+        const ret = originalDoc.getText(range)
+        return ret
     }
 
 }

@@ -18,6 +18,9 @@ export type Node = {
 
 export function rangeOfNode(node: Node) : vscode.Range {
     const {start, end} = node.position
+    if (node.type === 'code') {
+        return new vscode.Range(start.line, 0, end.line - 2, 1000)
+    }
     return new vscode.Range(start.line - 1, start.column - 1, end.line - 1, end.column - 1)
 }
 
@@ -61,6 +64,31 @@ export function getLanguageId(node: Node) {
     }
     if (node.type === 'code') {
         return node.lang
+    }
+    return
+}
+
+export function getLanguageSuffix(lang: string) {
+    if (lang === 'html') {
+        return 'html'
+    }
+    if (lang === 'css') {
+        return 'css'
+    }
+    if (lang === 'javascript') {
+        return 'js'
+    }
+    if (lang === 'typescript') {
+        return 'ts'
+    }
+    if (lang === 'latex') {
+        return 'tex'
+    }
+    if (lang === 'cpp') {
+        return 'cpp'
+    }
+    if (lang === 'c') {
+        return 'c'
     }
     return
 }

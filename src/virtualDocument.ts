@@ -1,13 +1,22 @@
+import * as fs from 'fs'
+import * as path from 'path'
+import * as tmp from 'tmp'
 import {Position, TextDocument, Uri, languages, workspace} from 'vscode'
-import {Node, getLanguageId, rangeOfNode} from './astUtil'
-import * as rangeUtil from './rangeUtil'
+import {Node, getLanguageId, getLanguageSuffix, rangeOfNode} from './astUtil'
 
 export const scheme = 'markdown-embed-content'
 
-export function createVirtualDocumentUri(document: TextDocument, node: Node) {
+tmp.setGracefulCleanup()
+export const tmpdir = tmp.dirSync().name
+
+export function createVirtualDocument(document: TextDocument, node: Node) {
     const range = rangeOfNode(node)
-    const rangeJson = rangeUtil.serialize(range)
-    const docUri = document.uri.with({ scheme, query: encodeURIComponent(rangeJson) })
+    const languageId = getLanguageId(node)
+    const suffix = languageId ? getLanguageSuffix(languageId) : ''
+    const tmpFilePath = path.join(tmpdir, 'dummy.' + suffix)
+    const textString = document.getText(range)
+    fs.writeFileSync(tmpFilePath, textString)
+    const docUri = Uri.file(tmpFilePath)
     return docUri
 }
 
