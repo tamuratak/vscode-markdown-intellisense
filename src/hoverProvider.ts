@@ -1,6 +1,6 @@
 import {Hover, HoverProvider, Position, TextDocument, commands} from 'vscode'
 import {findNode} from './astUtil'
-import {createVirtualDocument, createVirtualPosition, openVirtualDocument} from './virtualDocument'
+import {createVirtualDocument, createVirtualPosition, deleteVirtualDocument, openVirtualDocument} from './virtualDocument'
 
 export class MarkdownHoverProvider implements HoverProvider {
 
@@ -14,13 +14,17 @@ export class MarkdownHoverProvider implements HoverProvider {
         const virtualDocUri = createVirtualDocument(document, node)
         const virtualPosition = createVirtualPosition(position, node)
         const virtualDoc = await openVirtualDocument(virtualDocUri, node)
-        if (!virtualDoc || !virtualPosition) {
-            return
+        try {
+            if (!virtualDoc || !virtualPosition) {
+                return
+            }
+            const hovers = await commands.executeCommand<Hover[]>('vscode.executeHoverProvider', virtualDocUri, virtualPosition)
+            if (!hovers) {
+                return
+            }
+            return hovers[0]
+        } finally {
+            deleteVirtualDocument(virtualDocUri)
         }
-        const hovers = await commands.executeCommand<Hover[]>('vscode.executeHoverProvider', virtualDocUri, virtualPosition)
-        if (!hovers) {
-            return
-        }
-        return hovers[0]
     }
 }
