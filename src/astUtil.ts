@@ -69,26 +69,8 @@ export function getLanguageId(node: Node) {
 }
 
 export function getLanguageSuffix(lang: string) {
-    if (lang === 'html') {
-        return 'html'
-    }
-    if (lang === 'css') {
-        return 'css'
-    }
-    if (lang === 'javascript') {
-        return 'js'
-    }
-    if (lang === 'typescript') {
-        return 'ts'
-    }
-    if (lang === 'latex') {
-        return 'tex'
-    }
-    if (lang === 'cpp') {
-        return 'cpp'
-    }
-    if (lang === 'c') {
-        return 'c'
-    }
-    return
+    const configuration = vscode.workspace.getConfiguration('vscode-markdown-intellisense')
+    const extensionObj = configuration.get('languageFilenameExtensionList') as { [key: string] : string }
+    const ret = extensionObj[lang]
+    return ret
 }

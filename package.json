@@ -33,7 +33,29 @@
           ".md"
         ]
       }
-    ]
+    ],
+    "configuration": {
+      "title": "IntelliSense.md",
+      "properties": {
+        "vscode-markdown-intellisense.languageFilenameExtensionList": {
+          "type": "object",
+          "default": {
+            "typescript": "ts",
+            "javascript": "js",
+            "html": "html",
+            "css": "css",
+            "jsx": "jsx",
+            "cpp": "cpp",
+            "go": "go",
+            "java": "java",
+            "python": "py",
+            "ruby": "rb",
+            "rust": "rs"
+          },
+          "markdownDescription": "The list of language id and filename extension"
+        }
+      }
+    }
   },
   "dependencies": {
     "mathjax": "^2.7.5",
