@@ -1,6 +1,9 @@
-# `IntelliSense.md`
+# <span>IntelliSense.md</span>
 
-Let's enable IntelliSense in code blocks on a markdown file for Visual Studio Code!
+Intellisense and hover support for code blocks and math modes on markdown files for Visual Studio Code.
 
-We 😍 IntelliSense.
+## demo
 
+![typescript completion](https://raw.githubusercontent.com/tamuratak/vscode-markdown-intellisense/master/demo/typescriptCompletion.png)
+
+![typescript hover](https://raw.githubusercontent.com/tamuratak/vscode-markdown-intellisense/master/demo/typescriptHover.png)
