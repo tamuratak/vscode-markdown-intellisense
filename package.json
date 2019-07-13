@@ -90,9 +90,6 @@
     "out/**/*",
     "src/**/*"
   ],
-  "keywords": [
-    "pegjs"
-  ],
   "scripts": {
     "compile": "tsc -p ./",
     "watch": "tsc -w -p ./",
