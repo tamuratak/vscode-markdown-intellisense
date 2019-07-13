@@ -52,14 +52,19 @@
             "ruby": "rb",
             "rust": "rs"
           },
-          "markdownDescription": "The list of language id and filename extension"
+          "markdownDescription": "The list of language id and filename extension."
         },
         "vscode-markdown-intellisense.completionTriggerCharacters": {
           "type": "array",
           "default": [
             "\\", ".", ":"
           ],
-          "markdownDescription": "Characters to trigger completion"
+          "markdownDescription": "Characters to trigger completion."
+        },
+        "vscode-markdown-intellisense.dummyFileName": {
+          "type": "string",
+          "default": "dummyForIntelliSense",
+          "markdownDescription": "filename of dummy file for intellisense."
         }
       }
     }

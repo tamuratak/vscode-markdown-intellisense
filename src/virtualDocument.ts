@@ -10,11 +10,13 @@ tmp.setGracefulCleanup()
 export const tmpdir = tmp.dirSync().name
 
 function getTmpFilePath(suffix: string) {
+    const configuration = workspace.getConfiguration('vscode-markdown-intellisense')
+    const dummyFileName = configuration.get('dummyFileName') as string
     const dir = path.join(tmpdir, suffix)
     if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir)
     }
-    const tmpPath = path.join(tmpdir, suffix, 'dummyForIntelliSense.' + suffix)
+    const tmpPath = path.join(tmpdir, suffix, dummyFileName + '.' + suffix)
     if (!fs.existsSync(tmpPath)) {
         fs.writeFileSync(tmpPath, '0')
     }
