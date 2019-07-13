@@ -24,7 +24,7 @@ export class MarkdownCompletionItem implements CompletionItemProvider {
             context.triggerCharacter,
             10
         )
-        if (!itemList){
+        if (!itemList) {
             return
         }
         for (const item of itemList.items) {

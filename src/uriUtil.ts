@@ -3,9 +3,9 @@ import {Range, TextDocument} from 'vscode'
 export function querySerialize(arg: {document: TextDocument, range: Range}) {
     return JSON.stringify({
         path: arg.document.uri.path,
-        range: { 
+        range: {
             start: arg.range.start,
-            end: arg.range.end 
+            end: arg.range.end
         }
     })
 }

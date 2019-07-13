@@ -26,12 +26,12 @@ https://github.com/James-Yu/LaTeX-Workshop
 
 */
 
-'use strict';
-import * as vscode from 'vscode';
+'use strict'
+import * as vscode from 'vscode'
 
 export class MathPreview {
     jaxInitialized = false
-    mj : any
+    mj: any
 
     constructor() {
         import('mathjax-node').then(mj => {

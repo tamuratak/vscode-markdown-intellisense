@@ -70,7 +70,7 @@ export function getLanguageId(node: Node) {
 
 export function getLanguageSuffix(lang: string) {
     const configuration = vscode.workspace.getConfiguration('vscode-markdown-intellisense')
-    const extensionObj = configuration.get('languageFilenameExtensionList') as { [key: string] : string }
+    const extensionObj = configuration.get('languageFilenameExtensionList') as { [key: string]: string }
     const ret = extensionObj[lang]
     return ret
 }
