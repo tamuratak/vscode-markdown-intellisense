@@ -1,6 +1,6 @@
 import {CompletionContext, CompletionList, CompletionItemProvider, Position, TextDocument, commands} from 'vscode'
 import {findNode} from './astUtil'
-import {createVirtualDocument, createVirtualPosition, deleteVirtualDocument, openVirtualDocument} from './virtualDocument'
+import {createVirtualDocument, createVirtualPosition} from './virtualDocument'
 
 
 export class MarkdownCompletionItem implements CompletionItemProvider {
@@ -12,30 +12,25 @@ export class MarkdownCompletionItem implements CompletionItemProvider {
         if (!node) {
             return
         }
-        const virtualDocUri = createVirtualDocument(document, node)
+        const virtualDoc = await createVirtualDocument(document, node)
         const virtualPosition = createVirtualPosition(position, node)
-        const virtualDoc = await openVirtualDocument(virtualDocUri, node)
-        try {
-            if (!virtualDoc || !virtualPosition) {
-                return
-            }
-            const itemList = await commands.executeCommand<CompletionList>(
-                'vscode.executeCompletionItemProvider',
-                virtualDocUri,
-                virtualPosition,
-                context.triggerCharacter,
-                10
-            )
-            if (!itemList){
-                return
-            }
-            for (const item of itemList.items) {
-                item.range = undefined
-                item.textEdit = undefined
-            }
-            return itemList
-        } finally {
-            deleteVirtualDocument(virtualDocUri)
+        if (!virtualDoc || !virtualPosition) {
+            return
         }
+        const itemList = await commands.executeCommand<CompletionList>(
+            'vscode.executeCompletionItemProvider',
+            virtualDoc.uri,
+            virtualPosition,
+            context.triggerCharacter,
+            10
+        )
+        if (!itemList){
+            return
+        }
+        for (const item of itemList.items) {
+            item.range = undefined
+            item.textEdit = undefined
+        }
+        return itemList
     }
 }

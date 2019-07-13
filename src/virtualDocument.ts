@@ -1,25 +1,51 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import * as tmp from 'tmp'
-import {Position, TextDocument, Uri, WorkspaceEdit, languages, workspace} from 'vscode'
+import {Position, Range, TextDocument, Uri, WorkspaceEdit, languages, workspace} from 'vscode'
 import {Node, getLanguageId, getLanguageSuffix, rangeOfNode} from './astUtil'
 
 export const scheme = 'markdown-embed-content'
 
 tmp.setGracefulCleanup()
 export const tmpdir = tmp.dirSync().name
-let uniqNum = 0
 
-export function createVirtualDocument(document: TextDocument, node: Node) {
+function getTmpFilePath(suffix: string) {
+    const dir = path.join(tmpdir, suffix)
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir)
+    }
+    const tmpPath = path.join(tmpdir, suffix, 'dummyForIntelliSense.' + suffix)
+    if (!fs.existsSync(tmpPath)) {
+        fs.writeFileSync(tmpPath, '0')
+    }
+    return tmpPath
+}
+
+function getWholeRange(doc: TextDocument) {
+    const begin = new Position(0, 0)
+    const end = doc.lineAt(doc.lineCount - 1).range.end
+    return new Range(begin, end)
+}
+
+export async function createVirtualDocument(document: TextDocument, node: Node) {
     const range = rangeOfNode(node)
     const languageId = getLanguageId(node)
-    const suffix = languageId ? getLanguageSuffix(languageId) : ''
-    const tmpFilePath = path.join(tmpdir, uniqNum.toString() + 'dummy.' + suffix)
+    if (!languageId) {
+        return
+    }
+    const suffix = getLanguageSuffix(languageId)
+    if (!suffix) {
+        return
+    }
+    const tmpFilePath = getTmpFilePath(suffix)
     const textString = document.getText(range)
-    fs.writeFileSync(tmpFilePath, textString)
     const docUri = Uri.file(tmpFilePath)
-    uniqNum += 1
-    return docUri
+    const doc = await workspace.openTextDocument(docUri)
+    const wholeDocRange = getWholeRange(doc)
+    const edit = new WorkspaceEdit()
+    edit.replace(docUri, wholeDocRange, textString)
+    workspace.applyEdit(edit)
+    return doc
 }
 
 export function deleteVirtualDocument(uri: Uri) {
