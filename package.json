@@ -48,6 +48,7 @@
             "cpp": "cpp",
             "go": "go",
             "java": "java",
+            "latex": "tex",
             "python": "py",
             "ruby": "rb",
             "rust": "rs"
@@ -57,7 +58,9 @@
         "vscode-markdown-intellisense.completionTriggerCharacters": {
           "type": "array",
           "default": [
-            "\\", ".", ":"
+            "\\",
+            ".",
+            ":"
           ],
           "markdownDescription": "Characters to trigger completion."
         },
@@ -70,6 +73,7 @@
     }
   },
   "dependencies": {
+    "lodash": ">=4.17.13",
     "mathjax": "^2.7.5",
     "mathjax-node": "^2.1.1",
     "remark": "^10.0.1",

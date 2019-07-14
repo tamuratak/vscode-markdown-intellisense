@@ -1,3 +1,9 @@
 out/
 node_modules/
 .vscode-test/
+
+*/__pycache__/
+*/.mypy_cache/
+*/.pytest_cache/
+*/.venv/
+*/.vscode/.ropeproject
